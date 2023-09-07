@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es2017",
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true,
+    "target": "ES2016",
     "outDir": "./dist",
     "baseUrl": "./src"
   },
