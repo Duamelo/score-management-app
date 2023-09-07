@@ -1,10 +1,13 @@
 
 import 'reflect-metadata';
 import 'dotenv/config';
-import App from './app';
 import {DatabaseConfig} from './persistance/ormconfig';
-import TeamController from './adapter/controllers/team';
 import validateEnv from './utils/validateEnv';
+import * as jwt from 'jsonwebtoken';
+import AuthenticationController from './adapter/controllers/authentication.controller';
+import AuthenticationService from './domain/services/authentication.service';
+import { accountRepository } from './persistance/repository';
+import App from './app';
  
 validateEnv();
  
@@ -16,9 +19,13 @@ validateEnv();
     console.log('Error while connecting to the database', error);
     return error;
   }
+
+  // Services instanciation
+  const authenticationService = new AuthenticationService(accountRepository, jwt);
+
   const app = new App(
     [
-      new TeamController(),
+        new AuthenticationController(authenticationService)
     ],
     process.env.PORT
   );

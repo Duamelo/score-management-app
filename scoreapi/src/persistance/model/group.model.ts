@@ -7,7 +7,7 @@ class Group {
   @PrimaryGeneratedColumn()
   public id: string;
  
-  @Column()
+  @Column({ unique: true })
   public name: string;
 
   @ManyToOne(() => Tournament, (tournament: Tournament) => tournament.groups)

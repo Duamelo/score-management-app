@@ -1,4 +1,5 @@
 interface IRepository{
+    find();
     find(query: Object);
     findBy(query: Object);
     increment(key: Object, column, value);

@@ -7,8 +7,8 @@ class TeamMatchInfo {
   @PrimaryGeneratedColumn()
   public id: string;
  
-  @Column()
-  public date: Date;
+  @Column({ type: 'date' })
+  public date: String;
 
   @Column()
   public score: number;
@@ -18,6 +18,7 @@ class TeamMatchInfo {
 
   @Column()
   public type: string; // back and forth
+
 
   @OneToOne(()=> Match)
   @JoinColumn()

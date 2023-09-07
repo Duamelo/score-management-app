@@ -1,8 +1,9 @@
 
 import * as express from 'express';
+import * as cookieParser from 'cookie-parser';  
 import * as bodyParser from 'body-parser';
  
-class App {
+export default class App {
   public app: express.Application;
   public port: number;
  
@@ -11,11 +12,12 @@ class App {
     this.port = port;
  
     this.initializeMiddlewares();
-   // this.initializeControllers(controllers);
+    this.initializeControllers(controllers);
   }
  
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.use(cookieParser());
   }
  
   private initializeControllers(controllers) {
@@ -30,5 +32,3 @@ class App {
     });
   }
 }
- 
-export default App;

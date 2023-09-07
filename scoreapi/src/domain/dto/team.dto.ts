@@ -1,6 +1,8 @@
-interface TeamDto {
+interface TeamDTO {
+    id?: string;
     name: string;
     country: string;
+    groupId: number;
 }
   
-export default TeamDto;
+export default TeamDTO;

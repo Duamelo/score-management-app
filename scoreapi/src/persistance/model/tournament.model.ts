@@ -8,17 +8,17 @@ class Tournament {
   @PrimaryGeneratedColumn()
   public id: string;
  
-  @Column()
+  @Column({ unique: true })
   public name: string;
  
   @Column()
   public description: string;
 
-  @Column()
-  public start_date: Date;
+  @Column({ type: 'date' })
+  public start_date: String;
 
-  @Column()
-  public end_date: Date;
+  @Column({ type: 'date' })
+  public end_date: String;
   
 
   @ManyToMany(() => Team)

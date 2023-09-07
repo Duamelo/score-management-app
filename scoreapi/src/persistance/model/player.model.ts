@@ -6,7 +6,7 @@ class Player {
   @PrimaryGeneratedColumn()
   public id: string;
  
-  @Column()
+  @Column({ unique: true })
   public username: string;
  
   @Column()
@@ -16,4 +16,4 @@ class Player {
   public team: Team;
 }
  
-export default Player;  
+export default Player;
