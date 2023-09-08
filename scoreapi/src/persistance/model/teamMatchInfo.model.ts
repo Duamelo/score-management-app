@@ -12,13 +12,6 @@ class TeamMatchInfo {
 
   @Column()
   public score: number;
- 
-  @Column()
-  public duration: number;
-
-  @Column()
-  public type: string; // back and forth
-
 
   @OneToOne(()=> Match)
   @JoinColumn()

@@ -32,5 +32,4 @@ class Tournament {
   @OneToMany(() => Phase, (phase: Phase) => phase.tournament)
   public phases: Phase[];
 }
- 
 export default Tournament;

@@ -1,4 +1,6 @@
+import HttpException from "adapter/exceptions/HttpException";
 import PhaseDTO from "domain/dto/phase.dto";
+import Phase from "domain/entity/phase";
 import IRepository from "domain/interfaces/repository.interface";
 
 export default class PhaseService{
@@ -10,19 +12,46 @@ export default class PhaseService{
         this.tournamentRepository = tournamentRepository;
     }
 
-    private create(phase: PhaseDTO){
-        
+    private create = async (phase: PhaseDTO)=>{
+        let phaseExist = await this.phaseRepository.findBy({name: phase.name});
+
+        if (phaseExist.length)
+            throw new HttpException(404, "this phase already exists");
+        let tournament = await this.tournamentRepository.findBy({id: phase.tournamentId});
+
+        if (tournament.length){
+            let newPhase = new Phase(phase.name, phase.description, tournament);
+            await this.phaseRepository.save(newPhase);
+        }
     }
 
-    private update(phase: PhaseDTO){
+    private update = async (phase: PhaseDTO) =>{
+        let phaseExist = await this.phaseRepository.findBy({name: phase.name});
 
+        if (phaseExist.length)
+            throw new HttpException(404, "this phase does not exist");
+        let tournament = await this.tournamentRepository.findBy({id: phase.tournamentId});
+
+        if (tournament.length){
+            let newPhase = new Phase(phase.name, phase.description, tournament);
+            await this.phaseRepository.save(newPhase);
+        }
     }
 
-    private remove(phaseId: number){
-
+    private remove = async (phaseId: number) =>{
+        await this.phaseRepository.delete(phaseId);
     }
 
-    private getAllPhasesForATournament(tournamentId: number){
-
+    private getAllPhasesForATournament = async (tournamentId: number) =>{
+        return await this.phaseRepository.find({
+            relations: {
+                tournament: true
+            },
+            where: {
+                tournament:{
+                    id: tournamentId
+                }
+            }
+        })
     }
 }
