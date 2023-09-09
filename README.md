@@ -12,12 +12,14 @@
  - JWT authentication
  - Encrypted password 
 
-## Get started
+## Design Principles
+  - SOLID principles
 
+## Get started
  - git clone https://github.com/Duamelo/score-management-app.git
 
 
- ### Requirements
+### Requirements
 
     - node js
     - websocket
