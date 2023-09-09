@@ -65,7 +65,7 @@
     - cd scoreapi
     - run this command: npm run dev
 
-## Utilisateurs (for testing)
+## Profils (for testing)
 
 ### Admin
     - username: franck
