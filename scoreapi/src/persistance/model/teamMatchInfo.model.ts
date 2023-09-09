@@ -6,9 +6,6 @@ import Match from './match.model';
 class TeamMatchInfo {
   @PrimaryGeneratedColumn()
   public id: string;
- 
-  @Column({ type: 'date' })
-  public date: String;
 
   @Column()
   public score: number;

@@ -11,9 +11,8 @@ class TeamAssembler{
     }
 
     createTeam(teamDto: TeamDto){
-        let team: Team = new Team(teamDto.name, teamDto.country);
+        let team: Team = new Team(teamDto.name, teamDto.country, null); // tobe reviewed
         return team;
     }
 }
-
 export default TeamAssembler;

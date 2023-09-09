@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToMany, OneToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
-import Team from './team.model';
+import { Column, Entity, OneToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
 import Group from './group.model';
 import Phase from './phase.model';
  
@@ -19,12 +18,6 @@ class Tournament {
 
   @Column({ type: 'date' })
   public end_date: String;
-  
-
-  @ManyToMany(() => Team)
-  @JoinTable()
-  participants: Team[];
-
 
   @OneToMany(() => Group, (group: Group) => group.tournament)
   public groups: Group[];

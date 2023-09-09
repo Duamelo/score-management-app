@@ -7,14 +7,12 @@ export default class MatchService{
     private readonly teamRepository: IRepository;
     private readonly phaseRepository: IRepository;
     private readonly matchRepository: IRepository;
-    private readonly tournamentRepository: IRepository;
 
 
-    constructor(teamRepository: IRepository, phaseRepository: IRepository, matchRepository: IRepository, tournamentRepository: IRepository){
+    constructor(teamRepository: IRepository, phaseRepository: IRepository, matchRepository: IRepository){
         this.teamRepository = teamRepository;
         this.phaseRepository = phaseRepository;
         this.matchRepository = matchRepository;
-        this.tournamentRepository = tournamentRepository;
     }
 
     private create = async (match: MatchDTO) =>{
@@ -25,11 +23,17 @@ export default class MatchService{
         
         let team1 = await this.teamRepository.findBy({id : match.team1Id});
         let team2 = await this.teamRepository.findBy({id : match.team2Id});
-        let phase = await this.phaseRepository.findBy({id : match.phaseId});
-        let tournament = await this.tournamentRepository.findBy({id : match.tournamentId});
+        let phase = await this.phaseRepository.find({
+            where: {
+                id : match.phaseId
+            },
+            relations: {
+                tournament: true
+            }
+        });
 
         if (team1.length && team2.length){
-            let newMatch = new Match(match.date, match.venue, match.code, team1, team2, phase, tournament, match.duration, match.type);
+            let newMatch = new Match(match.date, match.venue, match.code, team1, team2, phase, match.duration, match.type);
 
             await this.matchRepository.save(newMatch);
         }
@@ -43,11 +47,16 @@ export default class MatchService{
         
         let team1 = await this.teamRepository.findBy({id : match.team1Id});
         let team2 = await this.teamRepository.findBy({id : match.team2Id});
-        let phase = await this.phaseRepository.findBy({id : match.phaseId});
-        let tournament = await this.tournamentRepository.findBy({id : match.tournamentId});
-
+        let phase = await this.phaseRepository.find({
+            where: {
+                id : match.phaseId
+            },
+            relations: {
+                tournament: true
+            }
+        });
         if (team1.length && team2.length){
-            let newMatch = new Match(match.date, match.venue, match.code, team1, team2, phase, tournament, match.duration, match.type);
+            let newMatch = new Match(match.date, match.venue, match.code, team1, team2, phase, match.duration, match.type);
 
             await this.matchRepository.save(newMatch);
         }

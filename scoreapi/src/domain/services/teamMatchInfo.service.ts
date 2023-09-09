@@ -35,8 +35,8 @@ export default class TeamMatchInfoService{
         if(!team.length && !match.length)
             throw new HttpException(404, "Some informations are missing");
         
-        let {date, score} = teamMatchInfo;
-        let newTeamMatchInfo = new TeamMatchInfo(date, score, team, match);
+        let { score} = teamMatchInfo;
+        let newTeamMatchInfo = new TeamMatchInfo(score, team, match);
         await this.teamMatchInfoRepository.save(newTeamMatchInfo);
     }
 
@@ -58,8 +58,8 @@ export default class TeamMatchInfoService{
         let team = await this.teamRepository.find({id: teamMatchInfo.teamId});
         let  match = await this.matchRepository.find({id: teamMatchInfo.matchId});
         
-        let {date, score} = teamMatchInfo;
-        let newTeamMatchInfo = new TeamMatchInfo(date, score, team, match);
+        let { score} = teamMatchInfo;
+        let newTeamMatchInfo = new TeamMatchInfo(score, team, match);
         await this.teamMatchInfoRepository.save(newTeamMatchInfo);
     }
 }

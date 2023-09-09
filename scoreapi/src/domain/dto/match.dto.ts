@@ -7,6 +7,5 @@ export default interface MatchDTO{
     team1Id: number;
     team2Id: number;
     phaseId: number;
-    tournamentId: number;
     type: string; // back and forth
 }

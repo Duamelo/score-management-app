@@ -3,20 +3,14 @@ import TeamDTO from "domain/dto/team.dto";
 
 export default class TeamMatchInfo{
     private id?: string;
-    private _date: string;
     private _score: number;
     private _team: TeamDTO;
     private _match: MatchDTO
 
-    constructor(date: string, score: number, team: TeamDTO, match: MatchDTO){
-        this._date = date;
+    constructor(score: number, team: TeamDTO, match: MatchDTO){
         this._score = score;
         this._team = team;
         this._match = match;
-    }
-
-    get date(): string{
-        return this._date;
     }
 
     get score(): number{
