@@ -14,7 +14,7 @@ export default class TeamStatTournamentService{
         this.teamStatTournamentRepository = teamStatTournamentRepository;
     }
 
-    private create = async (teamStat: TeamStatTournamentDTO)=>{
+    public create = async (teamStat: TeamStatTournamentDTO)=>{
         let teamStatExist = await this.teamStatTournamentRepository.find({
             where: {
                 team: {
@@ -36,7 +36,7 @@ export default class TeamStatTournamentService{
         await this.teamStatTournamentRepository.save(newTeamStat);
     }
 
-    private updatePoints = async (teamStatId: number, teamId: number, tournamentId: number, point: number)=>{
+    public updatePoints = async (teamId: number, tournamentId: number, point: number)=>{
         let team = await this.teamRepository.find({id: teamId});
         let tournament = await this.tournamentRepository.find({id: tournamentId});
 
@@ -51,29 +51,34 @@ export default class TeamStatTournamentService{
                 tournament: {
                     id: tournamentId
                 },
-                id: teamStatId
             }
         });
 
         if (teamStat.length){
-            teamStat.points = point;
+            teamStat.points += point;
             await this.teamStatTournamentRepository.save(teamStat);
         }
-   
     }
 
-    private getAllTeamsForATournament = async (tournamentId: number)=>{
-        let teams = await this.teamStatTournamentRepository.find({
+    public getAllTeamsForATournament = async (tournamentId: number)=>{
+        let teamStats = await this.teamStatTournamentRepository.find({
             where: {
                 tournament: {
                     id: tournamentId
                 }
+            },
+            relations: {
+                team: true
             }
         });
+        let teams = [];
+        teamStats.map((tstat)=>{
+            teams.push(tstat.team);
+        })
         return teams;
     }
 
-    private removeFromATournament = async (teamId: number, tournamentId: number) =>{
+    public removeFromATournament = async (teamId: number, tournamentId: number) =>{
         let team = await this.teamStatTournamentRepository.find({
             where: {
                 tournament: {
@@ -87,7 +92,20 @@ export default class TeamStatTournamentService{
         await this.teamStatTournamentRepository.delete(team.id);
     }
 
-    private getTeamPositionForATournament = async (tournamentId: number) =>{
+
+    public getTeamStatTournament = async (teamId: number, tournamentId: number) =>{
+        return await this.teamStatTournamentRepository.find({
+            where: {
+                tournament: {
+                    id: tournamentId
+                },
+                team: {
+                    id: teamId
+                }
+            }
+        });
+    }
+    public getTeamPositionForATournament = async (tournamentId: number) =>{
 
     }
 }

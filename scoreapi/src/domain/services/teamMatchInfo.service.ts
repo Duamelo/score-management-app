@@ -8,13 +8,13 @@ export default class TeamMatchInfoService{
     private readonly matchRepository: IRepository;
     private readonly teamMatchInfoRepository: IRepository;
 
-    constructor(teamRepository: IRepository, matchRepository: IRepository, eamMatchInfoRepository: IRepository){
+    constructor(teamRepository: IRepository, matchRepository: IRepository, teamMatchInfoRepository: IRepository){
         this.teamMatchInfoRepository = this.teamMatchInfoRepository;
         this.teamRepository = teamRepository;
         this.matchRepository = matchRepository
     }
 
-    private create = async (teamMatchInfo: TeamMatchInfoDTO)=>{
+    public create = async (teamMatchInfo: TeamMatchInfoDTO)=>{
         let teamMatchInfoExist = await this.teamMatchInfoRepository.find({
             where: {
                 team: {
@@ -40,26 +40,35 @@ export default class TeamMatchInfoService{
         await this.teamMatchInfoRepository.save(newTeamMatchInfo);
     }
 
-    private update = async (teamMatchInfo: TeamMatchInfoDTO) =>{
+    public updateScore = async (matchId: number, teamId: number, score: number) =>{
         let teamMatchInfoExist = await this.teamMatchInfoRepository.find({
             where: {
                 team: {
-                    id: teamMatchInfo.teamId
+                    id: teamId
                 },
                 match: {
-                    id: teamMatchInfo.matchId
+                    id: matchId
                 }
             }
         })
 
         if (!teamMatchInfoExist.length)
-            throw new HttpException(404, "this information about the team alredy does not exist");
-        
-        let team = await this.teamRepository.find({id: teamMatchInfo.teamId});
-        let  match = await this.matchRepository.find({id: teamMatchInfo.matchId});
-        
-        let { score} = teamMatchInfo;
-        let newTeamMatchInfo = new TeamMatchInfo(score, team, match);
-        await this.teamMatchInfoRepository.save(newTeamMatchInfo);
+            throw new HttpException(404, "this information about the team does not exist");
+                
+        teamMatchInfoExist.score = score;
+        await this.teamMatchInfoRepository.save(teamMatchInfoExist);
+    }
+
+    public getTeamMatchInfo =  async (teamId: number, matchId: number) =>{
+        return await this.teamMatchInfoRepository.find({
+            where: {
+                team: {
+                    id: teamId
+                },
+                match: {
+                    id: matchId
+                }
+            }
+        });
     }
 }

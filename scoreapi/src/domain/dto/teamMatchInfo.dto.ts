@@ -1,6 +1,6 @@
 export default interface TeamMatchInfoDTO{
     id?: string;
-    score: number;
+    score?: number;
     teamId: number;
     matchId: number;
 };

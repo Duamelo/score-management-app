@@ -11,7 +11,7 @@ export default class GroupService{
         this.tournamentRepository = tournamentRepository;
     }
 
-    private create = async (group: GroupDTO) =>{
+    public create = async (group: GroupDTO) =>{
         let groupExist = await this.groupRepository.findBy({name: group.name});
          if (groupExist.length)
             throw new HttpException(404, "This group already exist"); 
@@ -24,7 +24,7 @@ export default class GroupService{
         }
     }
 
-    private update = async (group: GroupDTO) =>{
+    public update = async (group: GroupDTO) =>{
         let groupExist = await this.groupRepository.findBy({name: group.name});
         if (!groupExist.length)
            throw new HttpException(404, "This group does not exist"); 
@@ -36,11 +36,19 @@ export default class GroupService{
        }
     }
 
-    private remove = async (groupId: number)=>{
+    public remove = async (groupId: number)=>{
         await this.groupRepository.delete(groupId);
     }
 
-    private getAllGroupsForATournament = async (tournamentId: number) =>{
+    public getAllGroups = async ()=>{
+        return await this.groupRepository.find();
+    }
+
+    public getById = async (groupId: number)=>{
+        return await this.groupRepository.find({id:groupId});
+    }
+
+    public getAllGroupsForATournament = async (tournamentId: number) =>{
         let groups = await this.groupRepository.find({
             relations: {
                 tournament: true

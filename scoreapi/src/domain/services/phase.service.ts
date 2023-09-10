@@ -12,7 +12,7 @@ export default class PhaseService{
         this.tournamentRepository = tournamentRepository;
     }
 
-    private create = async (phase: PhaseDTO)=>{
+    public create = async (phase: PhaseDTO)=>{
         let phaseExist = await this.phaseRepository.findBy({name: phase.name});
 
         if (phaseExist.length)
@@ -25,7 +25,7 @@ export default class PhaseService{
         }
     }
 
-    private update = async (phase: PhaseDTO) =>{
+    public update = async (phase: PhaseDTO) =>{
         let phaseExist = await this.phaseRepository.findBy({name: phase.name});
 
         if (phaseExist.length)
@@ -38,11 +38,22 @@ export default class PhaseService{
         }
     }
 
-    private remove = async (phaseId: number) =>{
+    public remove = async (phaseId: number) =>{
         await this.phaseRepository.delete(phaseId);
     }
 
-    private getAllPhasesForATournament = async (tournamentId: number) =>{
+    public getById = async (phaseId: number) =>{
+        return await this.phaseRepository.find({
+            where: {
+                id: phaseId
+            },
+            relations: {
+                tournament: true
+            }
+        });
+    }
+
+    public getAllPhasesForATournament = async (tournamentId: number) =>{
         return await this.phaseRepository.find({
             relations: {
                 tournament: true

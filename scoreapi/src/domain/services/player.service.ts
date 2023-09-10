@@ -12,7 +12,7 @@ export default class PlayerService{
         this.teamRepository = teamRepository;
     }
 
-    private register = async (player: PlayerDTO) =>{
+    public register = async (player: PlayerDTO) =>{
         let playerExist = await this.playerRepository.findBy({username: player.username});
 
         if (playerExist.length)
@@ -25,7 +25,7 @@ export default class PlayerService{
         }
     }
 
-    private getAllPlayersForATeam = async (teamName:string) =>{
+    public getAllPlayersForATeam = async (teamName:string) =>{
         return await this.playerRepository.find({
             relation: {
                 team: true
@@ -38,15 +38,15 @@ export default class PlayerService{
         })
     }
 
-    private getAllPlayers = async ()=>{
+    public getAllPlayers = async ()=>{
         return await this.playerRepository.find();
     }
 
-    private getPlayerByUsername = async (username: string) =>{
+    public getPlayerByUsername = async (username: string) =>{
         return await this.playerRepository.findBy({username: username});
     }
 
-    private update = async (player: PlayerDTO)=>{
+    public update = async (player: PlayerDTO)=>{
         let playerExist = await this.playerRepository.findBy({username: player.username});
 
         if (playerExist.length)
@@ -59,8 +59,7 @@ export default class PlayerService{
         }
     }
 
-    private remove = async (playerId: number) =>{
+    public remove = async (playerId: number) =>{
         await this.playerRepository.delete(playerId);
     }
-
 }

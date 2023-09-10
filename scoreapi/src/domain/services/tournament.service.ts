@@ -1,6 +1,6 @@
-import HttpException from "adapter/exceptions/HttpException";
-import TournamentDTO from "domain/dto/tournament.dto";
-import IRepository from "domain/interfaces/repository.interface";
+import HttpException from "../../adapter/exceptions/HttpException";
+import TournamentDTO from "../dto/tournament.dto";
+import IRepository from "../interfaces/repository.interface";
 
 export default class TournamentService{
     private readonly tournamentRepository: IRepository;
@@ -8,7 +8,7 @@ export default class TournamentService{
         this.tournamentRepository = tournamentRepository;
     }
 
-    private create = async (tournament: TournamentDTO)=>{
+    public create = async (tournament: TournamentDTO)=>{
         let tournamentExist = await this.tournamentRepository.findBy({name: tournament.name});
 
         if (tournamentExist.length)
@@ -16,7 +16,7 @@ export default class TournamentService{
         await this.tournamentRepository.save(tournament);
     }
 
-    private update = async (tournament: TournamentDTO) =>{
+    public update = async (tournament: TournamentDTO) =>{
         let tournamentExist = await this.tournamentRepository.findBy({name: tournament.name});
 
         if (!tournamentExist.length)
@@ -24,11 +24,15 @@ export default class TournamentService{
         await this.tournamentRepository.save(tournament);
     }
 
-    private remove = async (tournamentId: number) =>{
+    public remove = async (tournamentId: number) =>{
         await this.tournamentRepository.delete(tournamentId);
     }
 
-    private getAllTournaments = async ()=>{
+    public getAllTournaments = async ()=>{
         return await this.tournamentRepository.find();
+    }
+
+    public getByName = async (tounrnamentName: string)=>{
+        return await this.tournamentRepository.findBy({name: tounrnamentName});
     }
 }

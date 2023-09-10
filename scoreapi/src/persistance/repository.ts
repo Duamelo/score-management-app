@@ -7,6 +7,7 @@ import Team from "./model/team.model";
 import Tournament from "./model/tournament.model";
 import { DatabaseConfig } from "./ormconfig";
 import Account from "./model/account.model";
+import TeamStatTournament from "./model/teamStatTournament.model";
 
 export const teamRepository = DatabaseConfig.getRepository(Team);
 
@@ -19,6 +20,8 @@ export const phaseRepository = DatabaseConfig.getRepository(Phase);
 export const playerRepository = DatabaseConfig.getRepository(Player);
 
 export const teamMatchInfoRepository = DatabaseConfig.getRepository(TeamMatchInfo);
+
+export const teamStatTournamentRepository = DatabaseConfig.getRepository(TeamStatTournament);
 
 export const tournamentRepository = DatabaseConfig.getRepository(Tournament);
 
