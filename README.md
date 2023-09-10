@@ -1,6 +1,6 @@
 # score-management-app
 
-## Entity Relationnal Diagram
+## Entity Relationship Diagram
 
 ![ERD](score_mng_app_model.png)
 
