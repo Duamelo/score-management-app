@@ -1,4 +1,4 @@
 export default interface GroupDTO{
-    name: string;
+    name?: string;
     tournamentId: string;
 }

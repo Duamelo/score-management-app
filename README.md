@@ -8,6 +8,73 @@
 
 ![ERD](clean_architecture.png)
 
+
+
+## Api Endpoints
+
+### Tournaments
+
+    - POST      /api/v1/tournaments
+    - GET       /api/v1/tournaments
+    - GET       /api/v1/tournaments/:name
+    - PUT       /api/v1/tournaments/:name
+    - DELETE    /api/v1/tournaments/:tournamentId
+
+### Groups
+
+    - POST      /api/v1/groups
+    - GET       /api/v1/groups
+    - GET       /api/v1/groups/:groupId
+    - GET       /api/v1/groups/tournament/:tournamentId
+    - PUT       /api/v1/groups/:groupName
+    - DELETE    /api/v1/groups/:groupId
+
+
+### Phases
+
+    - POST      /api/v1/phases
+    - GET       /api/v1/phases
+    - GET       /api/v1/phases/:phaseId
+    - GET       /api/v1/phases/tournament/:tournamentId
+    - PUT       /api/v1/phases/:phaseName
+    - DELETE    /api/v1/phases/:phaseId
+
+### Teams
+
+    - POST      /api/v1/teams
+    - GET       /api/v1/teams
+    - GET       /api/v1/teams/:teamId
+    - GET       /api/v1/teams/group/:groupId
+    - PUT       /api/v1/teams/:teamName
+    - DELETE    /api/v1/teams/:teamId
+
+### Players
+
+    - POST      /api/v1/players
+    - GET       /api/v1/players/:playerId
+    - GET       /api/v1/players/team/:teamId
+    - PUT       /api/v1/players/:playerName
+    - DELETE    /api/v1/players/:playerId
+
+### Matches
+
+    - POST      /api/v1/matches
+    - GET       /api/v1/matches/:matchId
+    - GET       /api/v1/matches/tournament/:tournamentId
+    - PUT       /api/v1/matches/:matchCode
+    - DELETE    /api/v1/matches/:matchId
+
+
+## Other internal services
+
+### MatchService
+    Adding winner for a match
+### TeamMatchInfoService
+    For getting statistics and update score about a match in a tournament fora specific team.
+### TeamStatTournamentService
+    For tracking points'team according to their score for all matches in a specific tournament
+
+
 ## Data Security Policy
  - JWT authentication
  - Encrypted password 

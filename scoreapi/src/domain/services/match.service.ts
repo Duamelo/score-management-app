@@ -59,8 +59,8 @@ export default class MatchService{
         }
     }
 
-    public update = async (match: MatchDTO) =>{
-        let matchExist = await this.matchRepository.findBy({code:  match.code});
+    public update = async (code: string, match: MatchDTO) =>{
+        let matchExist = await this.matchRepository.findBy({code: code});
 
         if (!matchExist.length)
             throw new HttpException(404, 'this match does not axist');

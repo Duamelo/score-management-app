@@ -1,6 +1,6 @@
 export default interface PlayerDTO{
     id?: number;
-    username: string;
+    username?: string;
     role: string;
     teamId: string;
 }

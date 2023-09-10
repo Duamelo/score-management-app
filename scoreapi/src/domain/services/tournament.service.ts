@@ -16,8 +16,8 @@ export default class TournamentService{
         await this.tournamentRepository.save(tournament);
     }
 
-    public update = async (tournament: TournamentDTO) =>{
-        let tournamentExist = await this.tournamentRepository.findBy({name: tournament.name});
+    public update = async (name: string, tournament: TournamentDTO) =>{
+        let tournamentExist = await this.tournamentRepository.findBy({name: name});
 
         if (!tournamentExist.length)
             throw new HttpException(404, "This tournament does not exist");

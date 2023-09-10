@@ -15,7 +15,7 @@ export default class GroupController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.createAGroup);
     this.router.get(`${this.path}/:id`, this.getAGroup);
-    this.router.put(`${this.path}/`, this.updateGroup);
+    this.router.put(`${this.path}/:groupName`, this.updateGroup);
     this.router.delete(`${this.path}/:id`, this.deleteGroup);
     this.router.get(`${this.path}/tournament/:tournamentId`, this.getGroupsForATournament);
   }
@@ -32,7 +32,8 @@ export default class GroupController{
 
   private updateGroup = (request: express.Request, response: express.Response) => {
     const groupData: GroupDTO = request.body;
-    return response.send(this.groupService.update(groupData));      
+    const groupName = request.params.groupName;
+    return response.send(this.groupService.update(groupName, groupData));      
   }
 
   private deleteGroup = (request: express.Request, response: express.Response) => {

@@ -46,8 +46,8 @@ export default class PlayerService{
         return await this.playerRepository.findBy({username: username});
     }
 
-    public update = async (player: PlayerDTO)=>{
-        let playerExist = await this.playerRepository.findBy({username: player.username});
+    public update = async (username: string, player: PlayerDTO)=>{
+        let playerExist = await this.playerRepository.findBy({username: username});
 
         if (playerExist.length)
             throw new HttpException(404, "This player does not exist");

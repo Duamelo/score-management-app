@@ -24,8 +24,8 @@ export default class GroupService{
         }
     }
 
-    public update = async (group: GroupDTO) =>{
-        let groupExist = await this.groupRepository.findBy({name: group.name});
+    public update = async (name: string, group: GroupDTO) =>{
+        let groupExist = await this.groupRepository.findBy({name: name});
         if (!groupExist.length)
            throw new HttpException(404, "This group does not exist"); 
        let tournament = await this.tournamentRepository.findBy({id: group.tournamentId});

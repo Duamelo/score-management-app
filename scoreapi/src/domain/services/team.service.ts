@@ -51,8 +51,8 @@ export default class TeamService{
     }
 
 
-    public update  = async (team: TeamDTO) =>{
-        let teamExist = await this.teamRepository.findBy({name: team.name});
+    public update  = async (teamName:string, team: TeamDTO) =>{
+        let teamExist = await this.teamRepository.findBy({name: teamName});
 
         if (teamExist.length)
             throw new HttpException(404, "this team with that name already exist");

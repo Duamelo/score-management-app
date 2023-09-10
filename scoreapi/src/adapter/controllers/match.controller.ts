@@ -15,7 +15,7 @@ export default class MatchController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.createMatch);
     this.router.get(`${this.path}/:id`, this.getAMatch);
-    this.router.put(`${this.path}/`, this.updateAMatch);
+    this.router.put(`${this.path}/:matchCode`, this.updateAMatch);
     this.router.delete(`${this.path}/:id`, this.deleteAMatch);
     this.router.get(`${this.path}/tournament/:tournamentId`, this.getMatchesByTournament);
   }
@@ -32,7 +32,8 @@ export default class MatchController{
 
   private updateAMatch = (request: express.Request, response: express.Response) => {
     const matchData: MatchDTO = request.body;
-    return response.send(this.matchService.update(matchData));      
+    const matchCode: string = request.params.matchCode;
+    return response.send(this.matchService.update(matchCode, matchData));      
   }
 
   private deleteAMatch = (request: express.Request, response: express.Response) => {

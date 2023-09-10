@@ -1,6 +1,6 @@
 interface TeamDTO {
     id?: string;
-    name: string;
+    name?: string;
     country: string;
     groupId: number;
 }

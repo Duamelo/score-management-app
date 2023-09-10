@@ -15,7 +15,7 @@ export default class TournamentController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.createATournament);
     this.router.get(`${this.path}/:name`, this.getTournamentByName);
-    this.router.put(`${this.path}/`, this.updateTournament);
+    this.router.put(`${this.path}/:name`, this.updateTournament);
     this.router.delete(`${this.path}/:id`, this.deleteTournament);
     this.router.get(`${this.path}/`, this.getAllTournaments);
   }
@@ -32,7 +32,8 @@ export default class TournamentController{
 
   private updateTournament = (request: express.Request, response: express.Response) => {
     const tournamentData: TournamentDTO = request.body;
-    response.send(this.tournamentService.update(tournamentData));      
+    const name = request.params.name;
+    response.send(this.tournamentService.update(name, tournamentData));      
     response.sendStatus(200);
   }
 

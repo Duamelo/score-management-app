@@ -25,8 +25,8 @@ export default class PhaseService{
         }
     }
 
-    public update = async (phase: PhaseDTO) =>{
-        let phaseExist = await this.phaseRepository.findBy({name: phase.name});
+    public update = async (name: string, phase: PhaseDTO) =>{
+        let phaseExist = await this.phaseRepository.findBy({name: name});
 
         if (phaseExist.length)
             throw new HttpException(404, "this phase does not exist");

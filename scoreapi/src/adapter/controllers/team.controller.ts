@@ -15,7 +15,7 @@ export default class TeamController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.createATeam);
     this.router.get(`${this.path}/:id`, this.getTeamById);
-    this.router.put(`${this.path}/`, this.updateTeam);
+    this.router.put(`${this.path}/:teamName`, this.updateTeam);
     this.router.delete(`${this.path}/:id`, this.deleteTeam);
     this.router.get(`${this.path}/group/:groupId`, this.getTeamsByGroup);
   }
@@ -32,7 +32,8 @@ export default class TeamController{
 
   private updateTeam = (request: express.Request, response: express.Response) => {
     const teamData: TeamDTO = request.body;
-    return response.send(this.teamService.update(teamData));      
+    const teamName: string = request.params.teamName;
+    return response.send(this.teamService.update(teamName, teamData));      
   }
 
   private deleteTeam = (request: express.Request, response: express.Response) => {

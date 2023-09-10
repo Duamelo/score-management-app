@@ -15,7 +15,7 @@ export default class PlayerController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.addAPlayer);
     this.router.get(`${this.path}/:username`, this.getAPlayer);
-    this.router.put(`${this.path}/`, this.updateAPlayer);
+    this.router.put(`${this.path}/:username`, this.updateAPlayer);
     this.router.delete(`${this.path}/:id`, this.deleteAPlayer);
     this.router.get(`${this.path}/team/:teamId`, this.getPlayersByTeam);
   }
@@ -32,7 +32,8 @@ export default class PlayerController{
 
   private updateAPlayer = (request: express.Request, response: express.Response) => {
     const playerData: PlayerDTO = request.body;
-    return response.send(this.playerService.update(playerData));      
+    const username: string = request.params.username;
+    return response.send(this.playerService.update(username, playerData));      
   }
 
   private deleteAPlayer = (request: express.Request, response: express.Response) => {

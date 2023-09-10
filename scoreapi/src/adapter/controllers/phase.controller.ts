@@ -15,7 +15,7 @@ export default class PhaseController{
   private initializeRoutes() {
     this.router.post(`${this.path}/`, this.createAPhase);
     this.router.get(`${this.path}/:id`, this.getAPhase);
-    this.router.put(`${this.path}/`, this.updateAPhase);
+    this.router.put(`${this.path}/:phaseName`, this.updateAPhase);
     this.router.delete(`${this.path}/:id`, this.deleteAPhase);
     this.router.get(`${this.path}/tournament/:tournamentId`, this.getPhasesForATournament);
   }
@@ -32,7 +32,8 @@ export default class PhaseController{
 
   private updateAPhase = (request: express.Request, response: express.Response) => {
     const phaseData: PhaseDTO = request.body;
-    return response.send(this.phaseService.update(phaseData));      
+    const phaseName: string = request.params.phaseName;
+    return response.send(this.phaseService.update(phaseName, phaseData));      
   }
 
   private deleteAPhase = (request: express.Request, response: express.Response) => {
