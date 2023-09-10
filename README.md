@@ -70,9 +70,9 @@
 ### MatchService
     Adding winner for a match
 ### TeamMatchInfoService
-    For getting statistics and update score about a match in a tournament fora specific team.
+    For getting statistics and updating score about a match in a tournament for a specific team.
 ### TeamStatTournamentService
-    For tracking points'team according to their score for all matches in a specific tournament
+    For tracking team's points according to their score for all matches in a specific tournament
 
 
 ## Data Security Policy
